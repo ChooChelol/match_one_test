@@ -32,8 +32,6 @@ public class GameTile : MonoBehaviour
         Row = row;
         Col = col;
     }
-
-
     public void UpdatePosition()
     {
         var transformPosition = transform.position;

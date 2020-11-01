@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -36,7 +37,7 @@ public class Board : MonoBehaviour
         spriteRenderer.DOFade(0f, deathDuration)
             .OnComplete(() =>
             {
-                Destroy(GameTiles[x, y].gameObject);
+                //Destroy(GameTiles[x, y].gameObject);
                 OnDestroiedTile?.Invoke(x,y);
             });
 
@@ -63,13 +64,8 @@ public class Board : MonoBehaviour
         
         GameTiles[x, y] = Instantiate(_config.PieceMark,
             new Vector3Int(x, y + 1, 0), Quaternion.identity,transform);
-        var lengthPieceMarkEnum = Enum.GetValues(typeof(PieceMark)).Length - 1;
-        GameTiles[x, y].PieceMark = (PieceMark)Random.Range(0, lengthPieceMarkEnum);
-        var spriteRenderer = GameTiles[x, y].GetComponent<SpriteRenderer>();
-        var spriteRendererColor = spriteRenderer.color;
-        spriteRendererColor.a = 0;
-        GameTiles[x, y].GetComponent<SpriteRenderer>().color = spriteRendererColor;
-        GameTiles[x, y].GetComponent<SpriteRenderer>().DOFade(1f, deathDuration);
+        GameTiles[x, y].ChangePieceMarkRandom();
+        GameTiles[x, y].BornAnimation();
         GameTiles[x, y].Row = x;
         GameTiles[x, y].Col = y;
         GameTiles[x, y].UpdatePosition();
