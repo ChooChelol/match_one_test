@@ -61,8 +61,10 @@ public class Board : MonoBehaviour
             //return;
         }
         
-        GameTiles[x, y] = Instantiate(_config.GameTiles[Random.Range(0, _config.GameTiles.Length - 1)],
+        GameTiles[x, y] = Instantiate(_config.PieceMark,
             new Vector3Int(x, y + 1, 0), Quaternion.identity,transform);
+        var lengthPieceMarkEnum = Enum.GetValues(typeof(PieceMark)).Length - 1;
+        GameTiles[x, y].PieceMark = (PieceMark)Random.Range(0, lengthPieceMarkEnum);
         var spriteRenderer = GameTiles[x, y].GetComponent<SpriteRenderer>();
         var spriteRendererColor = spriteRenderer.color;
         spriteRendererColor.a = 0;
